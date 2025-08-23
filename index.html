@@ -1,133 +1,222 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yuri Cort's — Agende seu corte sem fila</title>
-  <meta name="description" content="Yuri Cort's: agende seu corte pelo site. Calendário dinâmico com horários livres, confirmação instantânea e experiência premium.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <header>
-    <div class="container nav">
-      <a href="#inicio" class="brand" aria-label="Página inicial">
-        <div class="logo">YC</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yuri Cort's — Agende seu corte sem fila</title>
+    <meta
+      name="description"
+      content="Yuri Cort's: agende seu corte pelo site. Calendário dinâmico com horários livres, confirmação instantânea e experiência premium."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <a href="#inicio" class="brand" aria-label="Página inicial">
+          <div class="logo">YC</div>
+          <div>
+            <div class="brand-title">Yuri Cort's</div>
+            <div class="brand-sub">Agende. Chegue. Corte.</div>
+          </div>
+        </a>
+        <nav aria-label="Navegação principal">
+          <ul>
+            <li><a href="#beneficios">Benefícios</a></li>
+            <li><a href="#agenda">Agendamento</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </nav>
+        <a class="cta" href="#agenda">Agende Agora</a>
+      </div>
+    </header>
+
+    <main id="inicio" class="container">
+      <section class="hero" aria-labelledby="hero-title">
         <div>
-          <div class="brand-title">Yuri Cort's</div>
-          <div class="brand-sub">Agende. Chegue. Corte.</div>
+          <span class="kicker">Barbearia & Beleza</span>
+          <h1 id="hero-title">
+            Seu novo visual <span class="gold">sem espera</span>.
+          </h1>
+          <p class="lead">
+            Agende pelo site <strong>Yuri Cort's</strong> e chegue no horário
+            certo. Simples, rápido e premium.
+          </p>
+          <div class="actions">
+            <a class="btn primary" href="#agenda">Reservar horário</a>
+            <a class="btn" href="#beneficios">Ver benefícios</a>
+          </div>
         </div>
-      </a>
-      <nav aria-label="Navegação principal">
-        <ul>
-          <li><a href="#beneficios">Benefícios</a></li>
-          <li><a href="#agenda">Agendamento</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
-      </nav>
-      <a class="cta" href="#agenda">Agende Agora</a>
-    </div>
-  </header>
+        <div class="phone-wrap" aria-label="Prévia visual">
+          <div class="phone" role="img" aria-label="Mockup de smartphone">
+            <div class="notch" aria-hidden="true"></div>
+            <div class="screen">
+              <img
+                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1200&auto=format&fit=crop"
+                alt="Visual premium"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <main id="inicio" class="container">
-    <section class="hero" aria-labelledby="hero-title">
-      <div>
-        <span class="kicker">Barbearia & Beleza</span>
-        <h1 id="hero-title">Seu novo visual <span class="gold">sem espera</span>.</h1>
-        <p class="lead">Agende pelo site <strong>Yuri Cort's</strong> e chegue no horário certo. Simples, rápido e premium.</p>
-        <div class="actions">
+      <section id="beneficios" aria-labelledby="beneficios-title">
+        <h2 id="beneficios-title">Praticidade para mudar o visual</h2>
+        <p class="lead">
+          Agende, chegue e curta sua experiência. Sem filas, sem ligação, sem
+          estresse.
+        </p>
+        <div class="grid" role="list">
+          <article class="card" role="listitem">
+            <h3>Agendamento em segundos</h3>
+            <p class="lead">
+              Escolha a data e o horário disponíveis com 1 clique.
+            </p>
+          </article>
+          <article class="card" role="listitem">
+            <h3>Transparência de fila</h3>
+            <p class="lead">
+              Horários indisponíveis ficam cinza — sem surpresas.
+            </p>
+          </article>
+          <article class="card" role="listitem">
+            <h3>Confirmação instantânea</h3>
+            <p class="lead">
+              Seu horário é reservado e você recebe a confirmação na hora.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="agenda" aria-labelledby="agenda-title">
+        <h2 id="agenda-title">Agende seu horário</h2>
+        <p class="lead">
+          Selecione uma <strong>data</strong> disponível e escolha um
+          <strong>horário</strong> livre (09:00–18:00).
+        </p>
+
+        <div class="scheduler">
+          <div class="calendar" aria-label="Calendário de agendamento">
+            <div class="cal-head">
+              <div class="cal-title">
+                <span id="calMonth"></span>
+                <span id="calYear" class="muted"></span>
+              </div>
+              <div class="cal-ctrls">
+                <button
+                  class="icon-btn"
+                  id="prevMonth"
+                  aria-label="Mês anterior"
+                >
+                  ◀
+                </button>
+                <button
+                  class="icon-btn"
+                  id="nextMonth"
+                  aria-label="Próximo mês"
+                >
+                  ▶
+                </button>
+              </div>
+            </div>
+            <div
+              class="cal-grid"
+              id="calGrid"
+              role="grid"
+              aria-labelledby="calMonth"
+            ></div>
+          </div>
+
+          <div class="panel">
+            <div>
+              <strong>Data selecionada:</strong>
+              <span id="selectedDate">—</span>
+            </div>
+            <div class="slots" id="slots" aria-live="polite"></div>
+
+            <form class="booking" id="bookingForm">
+              <div class="field">
+                <label for="clientName">Seu nome</label>
+                <input
+                  class="input"
+                  id="clientName"
+                  name="name"
+                  type="text"
+                  placeholder="Ex.: João Silva"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="clientPhone">Telefone para contato</label>
+                <input
+                  class="input"
+                  id="clientPhone"
+                  name="phone"
+                  type="tel"
+                  placeholder="Ex.: (82) 99929-6678"
+                  pattern="[+()\-\\s\\d]{8,20}"
+                  required
+                />
+              </div>
+              <input type="hidden" id="hiddenDate" />
+              <input type="hidden" id="hiddenTime" />
+              <button class="btn-primary-submit" type="submit">
+                Confirmar agendamento
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="cta-block" style="margin-top: 22px">
+          <p class="lead">
+            Quer alterar ou cancelar? Fale no WhatsApp:
+            <strong>(82) 99929-6678</strong>
+          </p>
+        </div>
+      </section>
+
+      <section id="contato" aria-labelledby="contato-title">
+        <h2 id="contato-title">Contato rápido</h2>
+        <div class="contact-card card">
+          <div>WhatsApp: <strong>(82) 99929-6678</strong></div>
+          <a
+            class="btn primary"
+            href="https://wa.me/5582999296678"
+            target="_blank"
+            rel="noopener"
+            >Chamar no WhatsApp</a
+          >
+        </div>
+      </section>
+
+      <section aria-label="Chamada final">
+        <div class="cta-block">
+          <h2>Pronto para seu próximo corte?</h2>
+          <p class="lead">
+            Reserve agora e chegue no horário certo — experiência premium do
+            início ao fim.
+          </p>
           <a class="btn primary" href="#agenda">Reservar horário</a>
-          <a class="btn" href="#beneficios">Ver benefícios</a>
         </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer">
+        © <span id="year"></span> Yuri Cort's — Todos os direitos reservados.
       </div>
-      <div class="phone-wrap" aria-label="Prévia visual">
-        <div class="phone" role="img" aria-label="Mockup de smartphone">
-          <div class="notch" aria-hidden="true"></div>
-          <div class="screen">
-            <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1200&auto=format&fit=crop" alt="Visual premium"/>
-          </div>
-        </div>
-      </div>
-    </section>
+    </footer>
 
-    <section id="beneficios" aria-labelledby="beneficios-title">
-      <h2 id="beneficios-title">Praticidade para mudar o visual</h2>
-      <p class="lead">Agende, chegue e curta sua experiência. Sem filas, sem ligação, sem estresse.</p>
-      <div class="grid" role="list">
-        <article class="card" role="listitem"><h3>Agendamento em segundos</h3><p class="lead">Escolha a data e o horário disponíveis com 1 clique.</p></article>
-        <article class="card" role="listitem"><h3>Transparência de fila</h3><p class="lead">Horários indisponíveis ficam cinza — sem surpresas.</p></article>
-        <article class="card" role="listitem"><h3>Confirmação instantânea</h3><p class="lead">Seu horário é reservado e você recebe a confirmação na hora.</p></article>
-      </div>
-    </section>
-
-    <section id="agenda" aria-labelledby="agenda-title">
-      <h2 id="agenda-title">Agende seu horário</h2>
-      <p class="lead">Selecione uma <strong>data</strong> disponível e escolha um <strong>horário</strong> livre (09:00–18:00).</p>
-
-      <div class="scheduler">
-        <div class="calendar" aria-label="Calendário de agendamento">
-          <div class="cal-head">
-            <div class="cal-title"><span id="calMonth"></span> <span id="calYear" class="muted"></span></div>
-            <div class="cal-ctrls">
-              <button class="icon-btn" id="prevMonth" aria-label="Mês anterior">◀</button>
-              <button class="icon-btn" id="nextMonth" aria-label="Próximo mês">▶</button>
-            </div>
-          </div>
-          <div class="cal-grid" id="calGrid" role="grid" aria-labelledby="calMonth"></div>
-        </div>
-
-        <div class="panel">
-          <div><strong>Data selecionada:</strong> <span id="selectedDate">—</span></div>
-          <div class="slots" id="slots" aria-live="polite"></div>
-
-          <form class="booking" id="bookingForm">
-            <div class="field">
-              <label for="clientName">Seu nome</label>
-              <input class="input" id="clientName" name="name" type="text" placeholder="Ex.: João Silva" required>
-            </div>
-            <div class="field">
-              <label for="clientPhone">Telefone para contato</label>
-              <input class="input" id="clientPhone" name="phone" type="tel" placeholder="Ex.: (82) 99929-6678" pattern="[+()\-\\s\\d]{8,20}" required>
-            </div>
-            <input type="hidden" id="hiddenDate">
-            <input type="hidden" id="hiddenTime">
-            <button class="btn primary submit" type="submit">Confirmar agendamento</button>
-          </form>
-        </div>
-      </div>
-
-      <div class="cta-block" style="margin-top:22px">
-        <p class="lead">Quer alterar ou cancelar? Fale no WhatsApp: <strong>(82) 99929-6678</strong></p>
-      </div>
-    </section>
-
-    <section id="contato" aria-labelledby="contato-title">
-      <h2 id="contato-title">Contato rápido</h2>
-      <div class="contact-card card">
-        <div>WhatsApp: <strong>(82) 99929-6678</strong></div>
-        <a class="btn primary" href="https://wa.me/5582999296678" target="_blank" rel="noopener">Chamar no WhatsApp</a>
-      </div>
-    </section>
-
-    <section aria-label="Chamada final">
-      <div class="cta-block">
-        <h2>Pronto para seu próximo corte?</h2>
-        <p class="lead">Reserve agora e chegue no horário certo — experiência premium do início ao fim.</p>
-        <a class="btn primary" href="#agenda">Reservar horário</a>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer">
-      © <span id="year"></span> Yuri Cort's — Todos os direitos reservados.
+    <div id="toast" class="toast" role="status" aria-live="polite">
+      Seu horário foi agendado com sucesso!
     </div>
-  </footer>
 
-  <div id="toast" class="toast" role="status" aria-live="polite">Seu horário foi agendado com sucesso!</div>
-
-  <script src="./script.js"></script>
-</body>
+    <script src="./script.js"></script>
+  </body>
 </html>
