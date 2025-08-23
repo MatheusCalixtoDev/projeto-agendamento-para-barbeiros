@@ -166,18 +166,13 @@ body {
 /* Desktop permanece igual */
 nav ul {
   display: flex;
-<<<<<<< HEAD
   gap: 22px; /* Espaçamento padrão para desktop */
-=======
-  gap: 20px;
->>>>>>> origin/principal
   list-style: none;
   padding: 0;
   margin: 0;
   align-items: center;
 }
 
-<<<<<<< HEAD
 @media (max-width: 768px) {
   nav ul {
     gap: 10px; /* Espaçamento menor no celular */
@@ -186,8 +181,6 @@ nav ul {
   }
 }
 
-=======
->>>>>>> origin/principal
 nav a {
   color: var(--muted);
   font-weight: 600;
