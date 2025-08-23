@@ -9,6 +9,7 @@
   --shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
   --radius: 18px;
 }
+
 * {
   box-sizing: border-box;
 }
@@ -80,7 +81,8 @@ header {
   margin-top: -4px;
 }
 /* Ajustes gerais */
-html, body {
+html,
+body {
   max-width: 100%;
   overflow-x: hidden; /* Bloqueia qualquer rolagem lateral */
   margin: 0;
@@ -303,31 +305,32 @@ h3 {
 }
 
 .calendar-container {
-    max-width: 100%; /*Fiz uma modificação para permitir rolagem horizontal e um tamanho para cada dispositivo  */
-    overflow-x: auto; /* Permite rolagem horizontal se precisar */
-    padding: 10px;
-    box-sizing: border-box; 
-} 
- 
+  max-width: 100%; /*Fiz uma modificação para permitir rolagem horizontal e um tamanho para cada dispositivo  */
+  overflow-x: auto; /* Permite rolagem horizontal se precisar */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
 .calendar-container table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .calendar-container th,
 .calendar-container td {
-    padding: 8px;
-    text-align: center;
-    font-size: 14px;
-    word-wrap: break-word;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  word-wrap: break-word;
 }
 
-@media (max-width: 480px) { /*Ajustes */
-    .calendar-container th,
-    .calendar-container td {
-        font-size: 12px;
-        padding: 6px;
-    }
+@media (max-width: 480px) {
+  /*Ajustes */
+  .calendar-container th,
+  .calendar-container td {
+    font-size: 12px;
+    padding: 6px;
+  }
 }
 
 .cal-head {
@@ -507,7 +510,8 @@ form.booking {
 
 /* Ajuste específico para Safari/iOS */
 @supports (-webkit-touch-callout: none) {
-  html, body {
+  html,
+  body {
     overscroll-behavior-x: none; /* Remove "puxar" lateral */
     -webkit-overflow-scrolling: touch; /* Rolar suave */
     overflow-x: hidden; /* Garante que não crie rolagem horizontal */
