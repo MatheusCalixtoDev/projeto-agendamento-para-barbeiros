@@ -290,7 +290,7 @@ h3 {
 @media (max-width: 480px) { /*Ajustes */
     .calendar-container th,
     .calendar-container td {
-        font-size: 14px;
+        font-size: 12px;
         padding: 6px;
     }
 }
