@@ -21,9 +21,14 @@ const ptMonths = [
 ];
 const ptWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
+let bookedSlots = {
+  // exemplo: "2025-08-24" : ["10:00", "14:00", "16:00"]
+};
+
 function pad(n) {
   return String(n).padStart(2, "0");
 }
+
 function fmtDateKey(y, m, d) {
   return `${y}-${pad(m + 1)}-${pad(d)}`;
 }
@@ -51,7 +56,8 @@ function buildCalendar() {
   calYear.textContent = view.y;
 
   calGrid.innerHTML = "";
-  // header dow
+
+  // header dos dias da semana
   ptWeek.forEach((w) => {
     const el = document.createElement("div");
     el.className = "dow";
@@ -62,6 +68,8 @@ function buildCalendar() {
   const first = new Date(view.y, view.m, 1);
   const startDay = first.getDay();
   const last = new Date(view.y, view.m + 1, 0).getDate();
+
+  // Dias vazios no início
   for (let i = 0; i < startDay; i++) {
     const e = document.createElement("div");
     e.className = "day muted";
@@ -71,6 +79,7 @@ function buildCalendar() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  // Dias do mês
   for (let d = 1; d <= last; d++) {
     const cell = document.createElement("button");
     cell.type = "button";
@@ -113,6 +122,7 @@ $("#prevMonth").addEventListener("click", () => {
   }
   buildCalendar();
 });
+
 $("#nextMonth").addEventListener("click", () => {
   view.m++;
   if (view.m > 11) {
@@ -128,38 +138,58 @@ function generateAllSlots() {
   return slots;
 }
 
-async function fetchBooked(dateKey) {
-  const res = await fetch(`/api/bookings/${dateKey}`);
-  if (!res.ok) return { bookedTimes: [] };
-  return res.json();
+// Busca dados locais
+function getBookedSlots(dateKey) {
+  return bookedSlots[dateKey] || [];
+}
+
+// Salva dados locais
+function saveBooking(dateKey, time, name, phone) {
+  if (!bookedSlots[dateKey]) {
+    bookedSlots[dateKey] = [];
+  }
+  //Verifica se já está ocupado
+  if (bookedSlots[dateKey].includes(time)) {
+    return { sucess: false, message: "Horário já ocupado!" };
+  }
+  // Salva o agendamento
+  bookedSlots[dateKey].push(time);
+
+  //Aqui pode salvar mais dados se quiser
+  console.log(`Agendamento salvo: ${name} ${phone} ${dateKey} ${time}`);
+  return { sucess: true, message: "Agendamento Confirmado!" };
 }
 
 //btn confirmação de agendamento
+// document
+// .querySelector(".btn-primary-submit")
+// .addEventListener("click", function () {
+//   confirmarAgendamento();
+// });
 
-document
-  .querySelector(".btn-primary-submit")
-  .addEventListener("click", function () {
-    confirmarAgendamento();
-  });
-
-function confirmarAgendamento() {
-  alert("Agendamento confirmado!");
-}
+//function confirmarAgendamento() {
+//  alert("Agendamento confirmado!");
+//}
 
 async function renderSlots(dateKey) {
   const wrap = $("#slots");
   wrap.innerHTML = "Carregando horários...";
   const all = generateAllSlots();
+
   try {
-    const { bookedTimes } = await fetchBooked(dateKey);
+    //utiliza dados locais
+    const bookedTimes = getBookedSlots(dateKey);
     wrap.innerHTML = "";
     const taken = new Set(bookedTimes || []);
+
     all.forEach((time) => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "slot";
       btn.textContent = time;
+
       if (taken.has(time)) btn.classList.add("taken");
+
       btn.addEventListener("click", () => {
         $$(".slot").forEach((s) => s.classList.remove("selected"));
         if (!btn.classList.contains("taken")) {
@@ -171,9 +201,11 @@ async function renderSlots(dateKey) {
     });
   } catch (e) {
     wrap.innerHTML = "Erro ao carregar horários.";
+    console.error("Erro:", e);
   }
 }
 
+//formulario
 $("#bookingForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const name = $("#clientName").value.trim();
@@ -189,21 +221,16 @@ $("#bookingForm").addEventListener("submit", async (e) => {
     alert("Selecione um horário disponível.");
     return;
   }
+  //função local
+  const result = saveBooking(dateKey, time, name, phone);
 
-  const res = await fetch("/api/booking", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, phone, date: dateKey, time }),
-  });
-
-  const data = await res.json();
-  if (res.ok) {
-    showToast(data.message || "Agendado!");
-    renderSlots(dateKey);
+  if (result.sucess) {
+    showToast(result.message);
+    renderSlots(dateKey); //atualiza os horarios
     $("#bookingForm").reset();
     $("#hiddenTime").value = "";
   } else {
-    alert(data.message || "Erro ao reservar");
+    alert(result.message);
     renderSlots(dateKey);
   }
 });
@@ -215,7 +242,16 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove("show"), 2200);
 }
 
-// Init
+//wpp
+function sendWhatsAppConfirmation(name, date, time) {
+  const phone = "558299929667"; // número do salão
+  const text = `Olá ${name}! Seu agendamento na Yuri Cort's foi confirmado para ${date} às ${time}.`;
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+  window.open(url, "_blank");
+}
+
+// Inicialização
+
 (function init() {
   buildCalendar();
   const t = new Date();
@@ -223,11 +259,3 @@ function showToast(msg) {
   selectDate(t.getFullYear(), t.getMonth(), t.getDate());
   $("#year").textContent = new Date().getFullYear();
 })();
-
-// --- WhatsApp Click-to-Chat ---
-function sendWhatsAppConfirmation(name, date, time) {
-  const phone = "5582999296678"; // número do salão
-  const text = `Olá ${name}! Seu agendamento na Yuri Cort's foi confirmado para ${date} às ${time}.`;
-  const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-  window.open(url, "_blank");
-}
