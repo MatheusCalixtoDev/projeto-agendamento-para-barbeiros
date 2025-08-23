@@ -504,3 +504,26 @@ form.booking {
 .toast.show {
   opacity: 1;
 }
+
+/* Ajuste específico para Safari/iOS */
+@supports (-webkit-touch-callout: none) {
+  html, body {
+    overscroll-behavior-x: none; /* Remove "puxar" lateral */
+    -webkit-overflow-scrolling: touch; /* Rolar suave */
+    overflow-x: hidden; /* Garante que não crie rolagem horizontal */
+  }
+
+  .btn-agendar {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 95vw; /* Garante que nunca passe da tela */
+    box-sizing: border-box;
+  }
+
+  nav ul {
+    justify-content: center;
+    flex-wrap: wrap; /* Permite quebrar linha caso necessário */
+    gap: 8px; /* Reduz um pouco mais no Safari */
+  }
+}
