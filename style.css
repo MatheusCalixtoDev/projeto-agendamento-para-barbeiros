@@ -79,6 +79,14 @@ header {
   color: var(--muted);
   margin-top: -4px;
 }
+/* Ajustes gerais */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden; /* Bloqueia qualquer rolagem lateral */
+  margin: 0;
+  padding: 0;
+}
+
 /* Desktop permanece igual */
 nav ul {
   display: flex;
@@ -88,24 +96,28 @@ nav ul {
   margin: 0;
 }
 
-/* Mobile fix */
+/* Mobile (inclui iOS) */
 @media (max-width: 768px) {
   nav {
     width: 100%;
-    overflow-x: hidden; /* Garante que nada vaze pro lado */
+    overflow-x: hidden;
   }
 
   nav ul {
-    gap: 8px; /* Espaçamento bem menor */
-    justify-content: space-around; /* Distribui melhor */
-    flex-wrap: wrap; /* Quebra linha se necessário */
-    width: 100%; /* Garante que ocupe toda a largura */
-    padding: 0 10px; /* Dá uma folga nas bordas */
+    gap: 8px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0 8px;
+    margin: 0;
     box-sizing: border-box;
   }
 
-  body {
-    overflow-x: hidden; /* Bloqueia rolagem lateral */
+  /* Se o botão de agendar for fixo, garanta que ele respeite a largura */
+  .btn-agendar {
+    max-width: 95vw; /* Evita vazar para fora */
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza fixamente */
   }
 }
 
