@@ -176,11 +176,14 @@ nav ul {
 @media (max-width: 768px) {
   nav ul {
     gap: 10px; /* Espaçamento menor no celular */
-    justify-content: center; /* Centraliza no mobile */
-    flex-wrap: wrap; /* Permite quebrar linha se necessário */
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }
 
+
+
+ origin/principal
 nav a {
   color: var(--muted);
   font-weight: 600;
