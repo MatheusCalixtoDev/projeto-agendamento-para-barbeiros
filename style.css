@@ -287,10 +287,10 @@ h3 {
     word-wrap: break-word;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) { /*Ajustes */
     .calendar-container th,
     .calendar-container td {
-        font-size: 12px;
+        font-size: 14px;
         padding: 6px;
     }
 }
