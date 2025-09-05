@@ -18,11 +18,12 @@ Variaveis CSS
 /*
 ============
 Reset e Base
-=========== 
+============ 
 */
 * {
   box-sizing: border-box;
 }
+
 html {
   scroll-behavior: smooth;
   max-width: 100%;
@@ -42,15 +43,10 @@ body {
   color: var(--text);
   max-width: 100%;
   overflow-x: hidden;
-
-  /*Previne Zoom no IOS  */
-
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
-
-/* Previne comportamentos indesejados no mobile */
 
 html,
 body {
@@ -62,12 +58,10 @@ body {
  Links e tipografia 
 ======================
 */
-
 a {
   color: inherit;
   text-decoration: none;
   transition: 0.25s ease;
-  /* Melhora o toque no mobile */
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -89,10 +83,9 @@ h3 {
 
 /*
 ===============
-layout container
+Layout container
 ================
 */
-
 .container {
   width: min(1120px, 92%);
   margin-inline: auto;
@@ -104,7 +97,6 @@ layout container
 Header e navegação
 ===================
 */
-
 header {
   position: sticky;
   top: 0;
@@ -154,16 +146,6 @@ header {
   margin-top: -4px;
 }
 
-/* Ajustes gerais
-html,
-body {
-  max-width: 100%;
-  overflow-x: hidden; /* Bloqueia qualquer rolagem lateral */
-/* margin: 0;
-  padding: 0; 
-} */
-
-/* Desktop permanece igual */
 nav ul {
   display: flex;
   gap: 20px;
@@ -216,7 +198,6 @@ nav a:hover {
 Seções e animações 
 ===================
 */
-
 section {
   padding: 60px 0;
   opacity: 0;
@@ -231,10 +212,9 @@ section.visible {
 
 /* 
 ======
-hero section 
+Hero section 
 ========
 */
-
 .hero {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -273,7 +253,7 @@ hero section
 
 /* 
 ======
-botoes
+Botões
 ======
 */
 .btn,
@@ -313,12 +293,21 @@ botoes
 }
 
 .btn.primary:hover,
-.btn-primary-submit {
+.btn-primary-submit:hover {
   background: linear-gradient(135deg, #f5d76e, var(--gold));
 }
+
+.btn-primary-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  background: #3a3a3a;
+  color: var(--muted);
+}
+
 /* 
 =========
-phone 
+Phone mockup
 ========
 */
 .phone-wrap {
@@ -368,7 +357,7 @@ phone
 
 /* 
 ============
-grid e card
+Grid e cards
 ============
 */
 .grid {
@@ -401,43 +390,28 @@ grid e card
 }
 
 /* 
-===========
-scheduler (agendamento) 
-========
+===========================
+NOVO LAYOUT DE AGENDAMENTO
+===========================
 */
+
+/* Container principal do scheduler com layout lado a lado */
 .scheduler {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1fr 400px 350px;
   gap: 24px;
   margin-top: 40px;
+  align-items: start;
 }
 
+/* ===== CALENDÁRIO (ESQUERDA) ===== */
 .calendar {
   background: linear-gradient(180deg, var(--card), #191919);
   border: 1px solid var(--soft);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
-}
-
-.calendar-container {
-  max-width: 100%; /*Fiz uma modificação para permitir rolagem horizontal e um tamanho para cada dispositivo  */
-  overflow-x: auto; /* Permite rolagem horizontal se precisar */
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.calendar-container table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.calendar-container th,
-.calendar-container td {
-  padding: 8px;
-  text-align: center;
-  font-size: 14px;
-  word-wrap: break-word;
+  height: fit-content;
 }
 
 .cal-head {
@@ -456,6 +430,7 @@ scheduler (agendamento)
   font-weight: 800;
   font-size: 18px;
 }
+
 .muted {
   color: var(--muted);
   font-weight: 500;
@@ -480,6 +455,7 @@ scheduler (agendamento)
   font-size: 14px;
   -webkit-tap-highlight-color: transparent;
 }
+
 .icon-btn:hover {
   transform: translateY(-1px);
   background: #2a2a2a;
@@ -519,6 +495,7 @@ scheduler (agendamento)
   font-weight: 600;
   position: relative;
 }
+
 .day:hover:not(.muted):not(.disabled) {
   background: #222;
   transform: scale(1.05);
@@ -529,6 +506,7 @@ scheduler (agendamento)
   cursor: default;
   color: #555;
 }
+
 .day.selected {
   outline: 3px solid color-mix(in oklab, var(--gold) 45%, transparent);
   background: rgba(212, 175, 55, 0.1);
@@ -542,12 +520,116 @@ scheduler (agendamento)
   background: #151515;
 }
 
-/* 
-============
-Painel de agendamento
-============
-*/
+/* ===== SERVIÇOS (CENTRO) ===== */
+.servicos-section {
+  background: linear-gradient(180deg, var(--card), #191919);
+  border: 1px solid var(--soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  height: fit-content;
+  max-height: 600px;
+  overflow-y: auto;
+}
 
+.servicos-section h3 {
+  margin-bottom: 20px;
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+  border-bottom: 1px solid var(--soft);
+  padding-bottom: 12px;
+}
+
+.servicos-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.servico-card {
+  background: linear-gradient(180deg, #262626, #1d1d1d);
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.servico-card:hover {
+  transform: translateY(-2px);
+  border-color: #3a3a3a;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.servico-card.selected {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.1), #1d1d1d);
+  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.2);
+}
+
+.servico-card.selected::after {
+  content: "✓";
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-2));
+  color: #111;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.servico-nome {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  padding-right: 35px;
+  line-height: 1.2;
+}
+
+.servico-descricao {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.servico-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.servico-preco {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gold);
+}
+
+.servico-duracao {
+  font-size: 11px;
+  color: var(--muted);
+  background: #2a2a2a;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid #3a3a3a;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+/* ===== PAINEL DE CONFIRMAÇÃO (DIREITA) ===== */
 .panel {
   background: linear-gradient(180deg, var(--card), #191919);
   border: 1px solid var(--soft);
@@ -555,26 +637,80 @@ Painel de agendamento
   box-shadow: var(--shadow);
   padding: 24px;
   height: fit-content;
+  max-height: 600px;
+  overflow-y: auto;
 }
 
-.slots {
+.panel h3 {
+  margin-bottom: 20px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+  border-bottom: 1px solid var(--soft);
+  padding-bottom: 12px;
+}
+
+/* Resumo do agendamento */
+.resumo-agendamento {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.15),
+    rgba(31, 31, 31, 0.9)
+  );
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 32px rgba(212, 175, 55, 0.1);
+}
+
+.resumo-item {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 16px 0 24px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  font-size: 14px;
+}
+
+.resumo-item:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+  font-weight: 800;
+  color: var(--gold);
+}
+
+.resumo-item strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.resumo-item span {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* Horários disponíveis */
+.slots {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 16px 0;
 }
 
 .slot {
-  padding: 12px 16px;
+  padding: 10px 12px;
   border: 1px solid #3a3a3a;
-  border-radius: 10px;
+  border-radius: 8px;
   background: #202020;
   cursor: pointer;
   transition: all 0.2s ease;
   user-select: none;
   font-weight: 600;
-  font-size: 14px;
-  min-height: 44px;
+  font-size: 13px;
+  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -582,7 +718,7 @@ Painel de agendamento
 }
 
 .slot:hover:not(.taken) {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   background: #2a2a2a;
   border-color: #4a4a4a;
 }
@@ -601,37 +737,33 @@ Painel de agendamento
   font-weight: 800;
 }
 
-/* 
-================
-formulario
-=================
-*/
-
-form.booking {
+/* Formulário */
+.booking {
   display: grid;
   gap: 16px;
-  margin-top: 20px;
+  margin-top: 16px;
 }
+
 .field {
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 .field label {
   font-weight: 600;
   color: var(--text);
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .input {
-  padding: 16px;
+  padding: 12px;
   border: 1px solid #2f2f2f;
-  border-radius: 12px;
+  border-radius: 8px;
   background: #1d1d1d;
   color: var(--text);
-  font-size: 16px;
+  font-size: 14px;
   transition: all 0.3s ease;
-  min-height: 50px;
+  min-height: 44px;
 }
 
 .input:focus {
@@ -639,13 +771,14 @@ form.booking {
   border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
 }
+
 .input::placeholder {
   color: #666;
 }
 
 /* 
 ===========
-cta block e outros components
+CTA block e outros componentes
 ======
 */
 .cta-block {
@@ -677,9 +810,10 @@ cta block e outros components
   color: var(--muted);
   text-align: center;
 }
+
 /* 
 ====
-toats
+Toast
 ====
 */
 .toast {
@@ -700,6 +834,7 @@ toats
   max-width: calc(100vw - 32px);
   text-align: center;
 }
+
 .toast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(-8px);
@@ -707,250 +842,760 @@ toats
 
 /* 
 ======
-media queres mobile
+Media queries - Responsividade
 =====
 */
 
-/* tablets */
+/* Tablets */
 @media (max-width: 1024px) {
   .container {
     width: min(100%, 95%);
   }
+
   .hero {
     grid-template-columns: 1fr;
     gap: 40px;
     text-align: center;
   }
+
   .phone-wrap {
     order: -1;
   }
+
+  /* Layout empilhado para tablets */
   .scheduler {
     grid-template-columns: 1fr;
     gap: 24px;
   }
+
+  .servicos-section,
+  .panel {
+    max-height: none;
+  }
 }
+
+/* Mobile */
 @media (max-width: 768px) {
   .nav {
     flex-direction: column;
     gap: 16px;
     text-align: center;
   }
+
   nav ul {
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
     width: 100%;
   }
+
   nav a {
     font-size: 14px;
     padding: 10px 16px;
   }
+
   .cta {
     padding: 12px 24px;
     font-size: 14px;
   }
+
   section {
     padding: 40px 0;
   }
+
   .hero h1 {
     font-size: clamp(28px, 8vw, 42px);
   }
+
   .actions {
     justify-content: center;
     flex-direction: column;
     align-items: center;
     gap: 12px;
   }
+
   .btn,
   .btn-primary-submit {
     width: 100%;
     max-width: 280px;
     padding: 16px 24px;
   }
+
   .grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  .card {
-    padding: 20px;
-  }
-  .cal-head {
-    padding: 16px 20px;
+
+  .card h3 {
+    font-size: 18px;
   }
 
-  .cal-title {
-    font-size: 16px;
-  }
-  .day {
-    min-height: 48px;
+  .toast {
+    bottom: 16px;
+    padding: 12px 20px;
     font-size: 14px;
   }
-  .dow {
-    padding: 12px 4px;
-    font-size: 11px;
+
+  .resumo-agendamento {
+    padding: 14px;
+    margin-bottom: 16px;
   }
 
-  .calendar-container th,
-  .calendar-container td {
-    font-size: 12px;
-    padding: 6px 4px;
-  }
-  .panel {
-    padding: 20px;
-  }
-  .slots {
-    gap: 8px;
-  }
-  .slot {
-    padding: 10px 14px;
+  .resumo-item {
     font-size: 13px;
-    min-height: 42px;
-  }
-  .input {
-    padding: 14px;
-    font-size: 16px;
-  }
-  .cta-block {
-    padding: 24px 20px;
-    margin-top: 32px;
+    margin-bottom: 6px;
   }
 }
 
+/* Mobile extra pequeno */
+@media (max-width: 375px) {
+  .hero h1 {
+    font-size: clamp(22px, 7vw, 32px);
+  }
+
+  .cal-grid {
+    font-size: 12px;
+  }
+
+  .day {
+    min-height: 40px;
+    font-size: 12px;
+  }
+
+  .slot {
+    font-size: 12px;
+    padding: 8px 10px;
+    min-height: 40px;
+  }
+
+  .servico-nome {
+    font-size: 14px;
+  }
+
+  .servico-preco {
+    font-size: 15px;
+  }
+}
+
+/* ===== ESTADOS DE CARREGAMENTO E ERRO ===== */
+.servicos-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.servicos-error {
+  background: linear-gradient(
+    135deg,
+    rgba(220, 53, 69, 0.1),
+    rgba(31, 31, 31, 0.8)
+  );
+  color: #ff6b6b;
+  padding: 24px;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  margin: 16px 0;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(220, 53, 69, 0.1);
+}
+
+/* ===== ANIMAÇÕES ===== */
+.servico-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.servico-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.servico-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.servico-card:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.resumo-agendamento {
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== ACESSIBILIDADE ===== */
+@media (prefers-reduced-motion: reduce) {
+  .servico-card {
+    animation: none;
+  }
+  .resumo-agendamento {
+    animation: none;
+  }
+
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.servico-card:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.slot:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ===== MELHORIAS PARA TOUCH DEVICES ===== */
+@media (hover: none) and (pointer: coarse) {
+  .servico-card:hover,
+  .slot:hover,
+  .day:hover {
+    transform: none;
+  }
+
+  .servico-card:active {
+    transform: scale(0.98);
+  }
+
+  .slot:active {
+    transform: scale(0.95);
+  }
+
+  .day:active {
+    transform: scale(0.95);
+  }
+}
+
+/* ===== SCROLLBAR CUSTOMIZADA ===== */
+.servicos-section::-webkit-scrollbar,
+.panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.servicos-section::-webkit-scrollbar-track,
+.panel::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 3px;
+}
+
+.servicos-section::-webkit-scrollbar-thumb,
+.panel::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 3px;
+}
+
+.servicos-section::-webkit-scrollbar-thumb:hover,
+.panel::-webkit-scrollbar-thumb:hover {
+  background: #f5d76e;
+}
+
+/* ===== ESTADOS DE FOCO E INTERAÇÃO ===== */
+.btn:focus-visible,
+.btn-primary-submit:focus-visible,
+.input:focus-visible,
+.icon-btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ===== OTIMIZAÇÕES DE PERFORMANCE ===== */
+.servico-card,
+.slot,
+.day,
+.btn,
+.btn-primary-submit {
+  will-change: transform;
+}
+
+.servico-card:hover,
+.slot:hover,
+.day:hover,
+.btn:hover,
+.btn-primary-submit:hover {
+  will-change: auto;
+}
+
+/* ===== UTILITÁRIOS ===== */
+.hidden {
+  display: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+d {
+  padding: 20px;
+}
+
+/* Ajustes do calendário mobile */
+.cal-head {
+  padding: 16px 20px;
+}
+
+.cal-title {
+  font-size: 16px;
+}
+
+.day {
+  min-height: 48px;
+  font-size: 14px;
+}
+
+.dow {
+  padding: 12px 4px;
+  font-size: 11px;
+}
+
+/* Ajustes do painel mobile */
+.panel,
+.servicos-section {
+  padding: 20px;
+}
+
+.slots {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.slot {
+  padding: 12px 14px;
+  font-size: 14px;
+  min-height: 44px;
+}
+
+.input {
+  padding: 14px;
+  font-size: 16px;
+  min-height: 50px;
+}
+
+.cta-block {
+  padding: 24px 20px;
+  margin-top: 32px;
+}
+
+/* Mobile pequeno */
 @media (max-width: 480px) {
   .container {
     padding: 0 12px;
   }
+
   .nav {
     padding: 12px 0;
   }
+
   .brand-title {
     font-size: 16px;
   }
+
   .brand-sub {
     font-size: 11px;
   }
+
   .logo {
     width: 36px;
     height: 36px;
     font-size: 14px;
   }
+
   nav ul {
     gap: 4px;
   }
+
   nav a {
     padding: 8px 12px;
     font-size: 13px;
   }
+
   .cta {
     padding: 10px 16px;
     font-size: 13px;
   }
+
   .hero {
     gap: 32px;
   }
+
   .hero h1 {
     font-size: clamp(24px, 8vw, 36px);
   }
+
   .kicker {
     font-size: 11px;
   }
+
   .lead {
     font-size: 15px;
   }
+
   .phone {
     width: min(280px, 95%);
   }
+
+  /* Calendário mobile pequeno */
   .cal-head {
     padding: 12px 16px;
     flex-wrap: wrap;
     gap: 12px;
   }
+
   .cal-title {
     font-size: 15px;
     order: 1;
     width: 100%;
     justify-content: center;
   }
+
   .cal-ctrls {
     order: 2;
     justify-content: center;
     width: 100%;
   }
+
   .icon-btn {
     width: 36px;
     height: 36px;
     font-size: 12px;
   }
+
   .day {
     min-height: 44px;
     font-size: 13px;
     padding: 12px 4px;
   }
+
   .dow {
     padding: 8px 4px;
     font-size: 10px;
   }
 
-  /* Ajuste especifico para o calendario no mobile pequeno*/
-  .calendar-container {
-    padding: 8px;
-  }
-  .calendar-container th,
-  .calendar-container td {
-    font-size: 11px;
-    padding: 4px 2px;
-  }
-  .panel {
+  /* Painel mobile pequeno */
+  .panel,
+  .servicos-section {
     padding: 16px;
   }
+
+  .servico-card {
+    padding: 14px;
+  }
+
+  .servico-nome {
+    font-size: 15px;
+    padding-right: 30px;
+  }
+
+  .servico-card.selected::after {
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    right: 10px;
+    font-size: 10px;
+  }
+
+  .servico-descricao {
+    font-size: 12px;
+  }
+
+  .servico-preco {
+    font-size: 16px;
+  }
+
+  .servico-duracao {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
   .slots {
     justify-content: center;
   }
+
   .slot {
-    padding: 8px 12px;
-    font-size: 12px;
-    min-height: 40px;
-    flex: 0 1 calc(50% - 4px);
+    padding: 10px 12px;
+    font-size: 13px;
+    min-height: 42px;
   }
+
   .input {
     padding: 12px;
     font-size: 16px;
+    min-height: 48px;
   }
+
   .btn,
   .btn-primary-submit {
     padding: 14px 20px;
     font-size: 15px;
     min-height: 48px;
   }
+
   .cta-block {
     padding: 20px 16px;
   }
+
   .card {
     padding: 16px;
   }
+
   .card h3 {
     font-size: 18px;
   }
+
   .toast {
     bottom: 16px;
     padding: 12px 20px;
     font-size: 14px;
   }
+
+  .resumo-agendamento {
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+
+  .resumo-item {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
 }
+
+/* Mobile extra pequeno */
 @media (max-width: 375px) {
   .hero h1 {
     font-size: clamp(22px, 7vw, 32px);
   }
+
   .cal-grid {
     font-size: 12px;
   }
+
   .day {
     min-height: 40px;
     font-size: 12px;
   }
+
   .slot {
-    font-size: 11px;
-    padding: 6px 10px;
-    min-height: 36px;
+    font-size: 12px;
+    padding: 8px 10px;
+    min-height: 40px;
   }
+
+  .servico-nome {
+    font-size: 14px;
+  }
+
+  .servico-preco {
+    font-size: 15px;
+  }
+}
+
+/* ===== ESTADOS DE CARREGAMENTO E ERRO ===== */
+.servicos-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.servicos-error {
+  background: linear-gradient(
+    135deg,
+    rgba(220, 53, 69, 0.1),
+    rgba(31, 31, 31, 0.8)
+  );
+  color: #ff6b6b;
+  padding: 24px;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  margin: 16px 0;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(220, 53, 69, 0.1);
+}
+
+/* ===== ANIMAÇÕES ===== */
+.servico-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.servico-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.servico-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.servico-card:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.resumo-agendamento {
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== ACESSIBILIDADE ===== */
+@media (prefers-reduced-motion: reduce) {
+  .servico-card {
+    animation: none;
+  }
+  .resumo-agendamento {
+    animation: none;
+  }
+
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.servico-card:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.slot:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ===== MELHORIAS PARA TOUCH DEVICES ===== */
+@media (hover: none) and (pointer: coarse) {
+  .servico-card:hover,
+  .slot:hover,
+  .day:hover {
+    transform: none;
+  }
+
+  .servico-card:active {
+    transform: scale(0.98);
+  }
+
+  .slot:active {
+    transform: scale(0.95);
+  }
+
+  .day:active {
+    transform: scale(0.95);
+  }
+}
+
+/* ===== SCROLLBAR CUSTOMIZADA ===== */
+.servicos-section::-webkit-scrollbar,
+.panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.servicos-section::-webkit-scrollbar-track,
+.panel::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 3px;
+}
+
+.servicos-section::-webkit-scrollbar-thumb,
+.panel::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 3px;
+}
+
+.servicos-section::-webkit-scrollbar-thumb:hover,
+.panel::-webkit-scrollbar-thumb:hover {
+  background: #f5d76e;
+}
+
+/* ===== ESTADOS DE FOCO E INTERAÇÃO ===== */
+.btn:focus-visible,
+.btn-primary-submit:focus-visible,
+.input:focus-visible,
+.icon-btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ===== OTIMIZAÇÕES DE PERFORMANCE ===== */
+.servico-card,
+.slot,
+.day,
+.btn,
+.btn-primary-submit {
+  will-change: transform;
+}
+
+.servico-card:hover,
+.slot:hover,
+.day:hover,
+.btn:hover,
+.btn-primary-submit:hover {
+  will-change: auto;
+}
+
+/* ===== UTILITÁRIOS ===== */
+.hidden {
+  display: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
