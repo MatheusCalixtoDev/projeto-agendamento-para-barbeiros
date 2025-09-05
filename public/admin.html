@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Admin — Yuri Cort's</title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <!-- Tela de Login -->
+    <div id="loginScreen" class="login-container">
+      <div class="login-card">
+        <h2>🔒 Painel Admin</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label>Usuário</label>
+            <input type="text" id="username" value="admin" required />
+          </div>
+          <div class="form-group">
+            <label>Senha</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="admin123"
+              required
+            />
+          </div>
+          <button type="submit" class="btn">Entrar</button>
+        </form>
+        <div id="loginError" class="error-message" style="display: none"></div>
+      </div>
+    </div>
+    <!-- SUBSTITUA o conteúdo do dashboard no seu admin.html por este código atualizado -->
+
+    <!-- Dashboard Principal -->
+    <div id="dashboard" class="dashboard">
+      <div class="container">
+        <div class="header">
+          <h1>📊 Painel Administrativo</h1>
+          <button class="logout-btn" onclick="logout()">Sair</button>
+        </div>
+
+        <!-- Estatísticas ATUALIZADAS -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="statsHoje">0</div>
+            <div class="stat-label">Agendamentos Hoje</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="receitaHoje">R$ 0,00</div>
+            <div class="stat-label">Receita Hoje</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statsMes">0</div>
+            <div class="stat-label">Agendamentos do Mês</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="receitaMes">R$ 0,00</div>
+            <div class="stat-label">Receita do Mês</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statsTotal">0</div>
+            <div class="stat-label">Total de Agendamentos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="servicoPopular">-</div>
+            <div class="stat-label">Serviço Mais Vendido</div>
+          </div>
+        </div>
+
+        <!-- NOVA SEÇÃO: Navegação por Abas -->
+        <div class="tabs-nav">
+          <button class="tab-btn active" onclick="mostrarAba('agendamentos')">
+            📅 Agendamentos
+          </button>
+          <button class="tab-btn" onclick="mostrarAba('servicos')">
+            ✂️ Serviços
+          </button>
+        </div>
+
+        <!-- ABA: Agendamentos (existente, mantém o mesmo) -->
+        <div class="tab-content active" id="tab-agendamentos">
+          <div class="main-content">
+            <h2>📅 Gerenciar Agendamentos</h2>
+
+            <!-- Filtros -->
+            <div class="filters">
+              <input
+                type="date"
+                id="filterData"
+                placeholder="Filtrar por data"
+              />
+              <select id="filterStatus">
+                <option value="">Todos os Status</option>
+                <option value="confirmado">Confirmado</option>
+                <option value="cancelado">Cancelado</option>
+                <option value="concluido">Concluído</option>
+              </select>
+              <button class="btn-sm btn-success" onclick="loadAgendamentos()">
+                🔍 Filtrar
+              </button>
+            </div>
+
+            <!-- Mensagens -->
+            <div id="message" style="display: none"></div>
+
+            <!-- Loading -->
+            <div id="loading" class="loading">
+              <div class="spinner"></div>
+              Carregando agendamentos...
+            </div>
+
+            <!-- Tabela ATUALIZADA -->
+            <div class="table-container">
+              <table id="agendamentosTable" style="display: none">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Telefone</th>
+                    <th>Serviço</th>
+                    <th>Preço</th>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="agendamentosBody"></tbody>
+              </table>
+            </div>
+
+            <!-- Paginação -->
+            <div class="pagination" id="pagination" style="display: none"></div>
+          </div>
+        </div>
+
+        <!-- NOVA ABA: Gerenciar Serviços -->
+        <div class="tab-content" id="tab-servicos">
+          <div class="main-content">
+            <h2>✂️ Gerenciar Serviços</h2>
+
+            <!-- Botão para adicionar serviço -->
+            <div class="actions-bar">
+              <button class="btn btn-primary" onclick="abrirModalServico()">
+                ➕ Novo Serviço
+              </button>
+            </div>
+
+            <!-- Loading para serviços -->
+            <div id="servicosLoading" class="loading">
+              <div class="spinner"></div>
+              Carregando serviços...
+            </div>
+
+            <!-- Tabela de serviços -->
+            <div class="table-container">
+              <table id="servicosTable" style="display: none">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Duração</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="servicosBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOVO MODAL: Gerenciar Serviço -->
+    <div id="modalServico" class="modal" style="display: none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modalServicoTitulo">Novo Serviço</h3>
+          <button class="modal-close" onclick="fecharModalServico()">×</button>
+        </div>
+        <form id="formServico">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="servicoNome">Nome do Serviço *</label>
+              <input
+                type="text"
+                id="servicoNome"
+                required
+                placeholder="Ex: Corte + Barba"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="servicoDescricao">Descrição</label>
+              <textarea
+                id="servicoDescricao"
+                placeholder="Descrição opcional do serviço"
+                rows="3"
+              ></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="servicoPreco">Preço (R$) *</label>
+                <input
+                  type="number"
+                  id="servicoPreco"
+                  step="0.01"
+                  min="0"
+                  required
+                  placeholder="25.00"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="servicoDuracao">Duração (min)</label>
+                <input
+                  type="number"
+                  id="servicoDuracao"
+                  min="5"
+                  max="180"
+                  placeholder="30"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <input type="checkbox" id="servicoAtivo" checked />
+                Serviço ativo (disponível para agendamento)
+              </label>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="fecharModalServico()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" id="btnSalvarServico">
+              Salvar Serviço
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

@@ -15,8 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <!-- Css -->
-    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
@@ -96,16 +95,24 @@
           </article>
         </div>
       </section>
+      <!-- SUBSTITUA a seção #agenda no seu index.html por esta versão atualizada -->
 
       <section id="agenda" aria-labelledby="agenda-title">
         <h2 id="agenda-title">Agende seu horário</h2>
         <p class="lead">
-          Selecione uma <strong>data</strong> disponível e escolha um
+          Escolha o <strong>serviço</strong>, selecione uma
+          <strong>data</strong> disponível e escolha um
           <strong>horário</strong> livre (09:00–18:00).
         </p>
 
         <div class="scheduler">
+          <div class="servicos-section" id="servicosSection">
+            <h3>1. Escolha o serviço</h3>
+            <div class="servicos-grid" id="servicosGrid"></div>
+          </div>
+
           <div class="calendar" aria-label="Calendário de agendamento">
+            <h3>2. Escolha a data</h3>
             <div class="cal-head">
               <div class="cal-title">
                 <span id="calMonth"></span>
@@ -137,10 +144,31 @@
           </div>
 
           <div class="panel">
-            <div>
-              <strong>Data selecionada:</strong>
-              <span id="selectedDate">—</span>
+            <h3>3. Confirme os dados</h3>
+
+            <div
+              class="resumo-agendamento"
+              id="resumoAgendamento"
+              style="display: none"
+            >
+              <div class="resumo-item">
+                <strong>Serviço:</strong>
+                <span id="resumoServico">—</span>
+              </div>
+              <div class="resumo-item">
+                <strong>Preço:</strong>
+                <span id="resumoPreco">—</span>
+              </div>
+              <div class="resumo-item">
+                <strong>Data:</strong>
+                <span id="selectedDate">—</span>
+              </div>
+              <div class="resumo-item">
+                <strong>Horário:</strong>
+                <span id="resumoHorario">—</span>
+              </div>
             </div>
+
             <div class="slots" id="slots" aria-live="polite"></div>
 
             <form class="booking" id="bookingForm">
@@ -160,16 +188,17 @@
                 <input
                   class="input"
                   id="clientPhone"
-                  name="phone"
+                  name="clientPhone"
                   type="tel"
                   placeholder="Ex.: (82) 99929-6678"
-                  pattern="[+()\-\\s\\d]{8,20}"
+                  maxlength="15"
                   required
                 />
               </div>
               <input type="hidden" id="hiddenDate" />
               <input type="hidden" id="hiddenTime" />
-              <button class="btn-primary-submit" type="submit">
+              <input type="hidden" id="hiddenServicoId" />
+              <button class="btn-primary-submit" type="submit" disabled>
                 Confirmar agendamento
               </button>
             </form>
@@ -220,6 +249,6 @@
       Seu horário foi agendado com sucesso!
     </div>
 
-    <script src="./js/script.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
