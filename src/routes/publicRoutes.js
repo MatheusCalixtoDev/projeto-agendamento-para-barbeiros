@@ -1,4 +1,3 @@
-// src/routes/publicRoutes.js
 const { Router } = require("express");
 const ServicoController = require("../controllers/servicoController");
 const AgendamentoController = require("../controllers/agendamentoController");
@@ -7,6 +6,6 @@ const routes = Router();
 
 routes.get("/servicos", ServicoController.listarAtivos);
 routes.post("/agendamentos", AgendamentoController.criar);
-// Adicionar rota para buscar horários ocupados aqui
+routes.get("/agendamentos/data/:date", AgendamentoController.horariosOcupados);
 
 module.exports = routes;
