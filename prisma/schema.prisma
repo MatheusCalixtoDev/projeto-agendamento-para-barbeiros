@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Mapeia a sua tabela 'admins'
+model Admin {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  passwordHash String   @map("password_hash") // Mapeia para a coluna password_hash
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("admins") // Garante que o nome da tabela no banco seja 'admins'
+}
+
+// Mapeia a sua tabela 'servicos'
+model Servico {
+  id        String   @id @default(uuid())
+  nome      String
+  descricao String? // O '?' indica que o campo é opcional
+  preco     Float
+  duracao   Int // Duração em minutos
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  agendamentos Agendamento[] // Um serviço pode estar em vários agendamentos
+
+  @@map("servicos")
+}
+
+// Mapeia a sua tabela 'agendamentos'
+model Agendamento {
+  id             String   @id @default(uuid())
+  clienteNome    String   @map("cliente_nome")
+  clienteTelefone String?  @map("cliente_telefone")
+  dataAgendamento DateTime @map("data_agendamento") // Combina data e hora
+  status         String   @default("pendente")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  // Chave estrangeira para o relacionamento com Servico
+  servico   Servico @relation(fields: [servicoId], references: [id])
+  servicoId String  @map("servico_id")
+
+  @@map("agendamentos")
+}
