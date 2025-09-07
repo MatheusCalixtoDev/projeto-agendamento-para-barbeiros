@@ -1,5 +1,4 @@
 // src/app.js
-require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -16,12 +15,10 @@ class App {
   middlewares() {
     this.server.use(cors());
     this.server.use(express.json());
-    // Serve os arquivos estáticos da pasta 'public'
     this.server.use(express.static(path.resolve(__dirname, "..", "public")));
   }
 
   routes() {
-    // Todas as rotas da API começarão com /api
     this.server.use("/api", routes);
   }
 

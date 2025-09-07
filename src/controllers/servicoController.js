@@ -20,36 +20,47 @@ class ServicoController {
   }
 
   async criar(req, res) {
-    const { nome, descricao, preco, duracao } = req.body;
+    const { nome, descricao, preco, duracao, ativo } = req.body;
     if (!nome || !preco) {
       return res.status(400).json({ error: "Nome e preço são obrigatórios" });
     }
-    const servico = await prisma.servico.create({
-      data: {
-        nome,
-        descricao,
-        preco: parseFloat(preco),
-        duracao: parseInt(duracao) || 30,
-      },
-    });
-    return res.status(201).json({ servico });
+    try {
+      const servico = await prisma.servico.create({
+        data: {
+          nome,
+          descricao,
+          preco: parseFloat(preco),
+          duracao: parseInt(duracao) || 30,
+          ativo: ativo !== undefined ? ativo : true,
+        },
+      });
+      return res.status(201).json({ servico });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ error: "Não foi possível criar o serviço." });
+    }
   }
 
   async atualizar(req, res) {
     const { id } = req.params;
     const { nome, descricao, preco, duracao, ativo } = req.body;
 
-    const servico = await prisma.servico.update({
-      where: { id },
-      data: {
-        nome,
-        descricao,
-        preco: parseFloat(preco),
-        duracao: parseInt(duracao),
-        ativo,
-      },
-    });
-    return res.json(servico);
+    try {
+      const servico = await prisma.servico.update({
+        where: { id },
+        data: {
+          nome,
+          descricao,
+          preco: parseFloat(preco),
+          duracao: parseInt(duracao),
+          ativo,
+        },
+      });
+      return res.json(servico);
+    } catch (error) {
+      return res.status(404).json({ error: "Serviço não encontrado." });
+    }
   }
 }
 
